@@ -19,7 +19,7 @@ struct rule {
 	unsigned int dstPort_upper; // 16 bits
 	unsigned int dstPort_lower; // 16 bits	
 	unsigned int protocol_1; // 8 bits
-	unsigned int protocol_2; // 8 bits
+	unsigned int protocol_mask; // 8 bits
 	// metadata
 	unsigned int wildcard; // 1bits, if wildcard = 1 it should match. if wildcard = 0 it shouldn't match
 };
@@ -95,11 +95,11 @@ void readtable() {
 		sprintf(buf, "%s\0", strtok(NULL, tok_proto));
 		datatable[i].protocol_1 = buf[0] >= 'a' ? (buf[0] - 'a' + 10) * 16 : (buf[0] - '0') * 16;
 		datatable[i].protocol_1 += buf[1] >= 'a' ? (buf[1] - 'a' + 10) : (buf[1] - '0');
-		// Deal protocol_2
+		// Deal protocol_mask
 		sprintf(buf, "%s\0", strtok(NULL, tok_proto));
 		sprintf(buf, "%s\0", strtok(NULL, tok_proto));
-		datatable[i].protocol_2 = buf[0] >= 'a' ? (buf[0] - 'a' + 10) * 16 : (buf[0] - '0') * 16;
-		datatable[i].protocol_2 += buf[1] >= 'a' ? (buf[1] - 'a' + 10) : (buf[1] - '0');
+		datatable[i].protocol_mask = buf[0] >= 'a' ? (buf[0] - 'a' + 10) * 16 : (buf[0] - '0') * 16;
+		datatable[i].protocol_mask += buf[1] >= 'a' ? (buf[1] - 'a' + 10) : (buf[1] - '0');
 	}
 }
 
